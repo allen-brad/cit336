@@ -1,0 +1,26 @@
+INSERT INTO `clients`
+        (`clientFirstname`, `clientLastname`, `clientEmail`, `cientPassword`, `comments`)
+VALUES
+        ('Tony','Stark','tony@starkent.com','Iam1ronM@n','I am the real Ironman')
+
+UPDATE
+	clients
+SET
+	clientLevel = 3
+WHERE
+	clientId = 4
+
+UPDATE
+	inventory_backup
+SET
+	invName = REPLACE (invName, "Nylon Rope", "Climbing Rope"),
+	invDescription = REPLACE (invDescription, "nylon rope", "climbing rope")
+
+WHERE
+        invId = 15;
+
+DELETE
+FROM
+	inventory_backup
+WHERE
+	invId = 7
