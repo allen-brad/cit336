@@ -3,7 +3,8 @@
 if(!$_SESSION['loggedin']){
   //not logged in so send them home
   header('Location: /acme/');
-  exit;}
+  exit;
+}
   $fullName = $_SESSION['clientData']['clientFirstname'].' '.$_SESSION['clientData']['clientLastname'];
 ?>
   <!DOCTYPE html>
@@ -29,7 +30,11 @@ if(!$_SESSION['loggedin']){
                     }
                 ?>
                 <h1><?php echo $fullName; ?></h1>
-                <?php echo $clientList; ?>                
+                <?php echo $clientList;
+                if($_SESSION['clientData']['clientLevel']>1){
+                  echo '<p><a href="/acme/products" title="Manage Products">Manage Products</a></p>';
+                }
+                ?>                
             </main>
             <footer id="primary-footer">
                 <?php include $_SERVER['DOCUMENT_ROOT'] . '/acme/common/footer.php'; ?>

@@ -1,4 +1,10 @@
 <?php
+//only logged in users with level 2 or higher can enter
+if($_SESSION['clientData']['clientLevel'] < 2){
+  header('Location: /acme/');
+  exit;
+}
+
 //build the categories options list
   $catList = '<select name="categoryID" required>';
   $catList .= '<option value="" autofocus >select a category</option>';

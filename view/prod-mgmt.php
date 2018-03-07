@@ -1,3 +1,12 @@
+<?php
+//only logged in users with level 2 or higher can enter
+if($_SESSION['clientData']['clientLevel'] < 2){
+  header('Location: /acme/');
+}
+if (isset($_SESSION['message'])) {
+ $message = $_SESSION['message'];
+}
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -15,11 +24,6 @@
                 <?php echo $navList; ?>
             </nav>
             <main>
-                <?php
-                    if (isset($message)) {
-                    echo $message;
-                    }
-                ?>
                 <h1>Product Management</h1>
                 <form action="/acme/products/" method="post" class="acmeform">
                   <input type="submit" value="Add a New Category" class="submitBtn">
@@ -32,6 +36,13 @@
                     <!--add the action key-value pair-->
                     <input type="hidden" name="action" value="newProduct">
                 </form>
+                <?php
+                  if (isset($message)) {
+                    echo $message;
+                  } if (isset($prodList)) {
+                    echo $prodList;
+                  }
+                ?>
             </main>
             <footer id="primary-footer">
                 <?php include $_SERVER['DOCUMENT_ROOT'] . '/acme/common/footer.php'; ?>
@@ -39,3 +50,4 @@
         </div>
     </body>
 </html>
+<?php unset($_SESSION['message']); ?>

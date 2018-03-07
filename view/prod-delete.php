@@ -4,11 +4,12 @@ if($_SESSION['clientData']['clientLevel'] < 2){
   header('Location: /acme/');
   exit;
 }
-?><!DOCTYPE html>
+?>
+<!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
-        <title> Prod MGMT | Acme, Inc.</title>
+        <title><?php if(isset($prodInfo['invName'])){ echo "Delete $prodInfo[invName] ";}?>| ACME, Inc.</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="/acme/css/normalize.css">
         <link rel="stylesheet" href="/acme/css/screen.css">
@@ -28,12 +29,15 @@ if($_SESSION['clientData']['clientLevel'] < 2){
                 ?>
                 <form action="/acme/products/" method="post" class="acmeform">
                     <fieldset>
-                        <legend>Create New Category</legend>
-                        <label><span>Category Name:</span><input type="text" size="25" name="categoryName" <?php if(isset($categoryName)){echo "value='$categoryName'";} ?> placeholder="New Category Name" pattern="[a-zA-Z]{3,30}" title="Only letters please and a minimum of 3 characters." required></label>
+                        <legend><?php if(isset($prodInfo['invName'])){ echo "Delete $prodInfo[invName] ";}?></legend>
+                        <p>Confirm Product Deletion. The delete is permanent.</p>
+                        <label><span>Product Name:</span><input type="text" size="25" name="invName" <?php if(isset($prodInfo['invName'])) {echo "value='$prodInfo[invName]'"; }?> readonly></label>
+                        <label><span>Product Description:</span><textarea name="invDescription" readonly><?php if(isset($prodInfo['invDescription'])) {echo $prodInfo['invDescription']; } ?></textarea></label>                    
                     </fieldset>
-                    <input type="submit" value="Add a New Category" class="submitBtn">
+                    <input type="submit" value="Delete Product" class="submitBtn">
                     <!--add the action key-value pair-->
-                    <input type="hidden" name="action" value="addCategory">
+                    <input type="hidden" name="action" value="deleteProd">
+                    <input type="hidden" name="invId" value="<?php if(isset($prodInfo['invId'])){ echo $prodInfo['invId'];}?>">
                 </form>
             </main>
             <footer id="primary-footer">

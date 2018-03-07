@@ -67,7 +67,12 @@ switch ($action) {
         // Send them to the admin view
         include '../view/admin.php';
         exit;
-    case 'createAccount':
+      case 'logout';
+        $_SESSION = array ();//empty out the global session
+        session_destroy();
+        header('Location: /acme/');
+        break;  
+      case 'createAccount':
         include '../view/register.php';
         break;
     case 'register':
