@@ -13,16 +13,6 @@ function getNavList($categories){
   return $navList;
 }
 
-
-function getClientList(){
-  $clientList = '<ul>';
-  foreach ($_SESSION['clientData'] as $key => $value) {
-    $clientList .= "<li>".$key.": ". $value . "</li>";
-  }
-  $clientList .= '</ul>';
-  return $clientList;
-}
-
 function checkEmail($clientEmail){
   $valEmail = filter_var($clientEmail, FILTER_VALIDATE_EMAIL);
   return $valEmail;

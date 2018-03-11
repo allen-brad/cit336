@@ -181,6 +181,10 @@ body {
     color:#990033;
     background-color: #fff;
 }
+/*--------------------------------- admin ---------------------------------*/
+#clientDataList li {
+  list-style-type:none;
+}
 
 /*--------------------------------- footer ---------------------------------*/
 #primary-footer {

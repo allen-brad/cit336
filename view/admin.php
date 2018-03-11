@@ -24,17 +24,26 @@ if(!$_SESSION['loggedin']){
                 <?php echo $navList; ?>
             </nav>
             <main>
+                <h1><?php echo $fullName . ", you are logged in.";?></h1>
                 <?php
-                    if (isset($message)) {
+                  if (isset($message)) {
                     echo $message;
-                    }
+                  }
                 ?>
-                <h1><?php echo $fullName; ?></h1>
-                <?php echo $clientList;
-                if($_SESSION['clientData']['clientLevel']>1){
-                  echo '<p><a href="/acme/products" title="Manage Products">Manage Products</a></p>';
-                }
+                <?php
+                  echo $clientList;
+                  if($_SESSION['clientData']['clientLevel']>1){
+                    echo'<form action="/acme/products/" method="post" class="acmeform">
+                    <input type="submit" value="Manage Products" class="submitBtn">
+                    </form>';
+                  }
                 ?>                
+                <form action="/acme/accounts/" method="post" class="acmeform">
+                  <input type="submit" value="Update Account Information" class="submitBtn">
+                    <!--add the action key-value pair-->
+                    <input type="hidden" name="action" value="mod">
+                    <input type="hidden" name="clientEmail" value="<?php if(isset($_SESSION['clientData']['clientEmail'])){ echo $_SESSION['clientData']['clientEmail'];} ?>">
+                </form>             
             </main>
             <footer id="primary-footer">
                 <?php include $_SERVER['DOCUMENT_ROOT'] . '/acme/common/footer.php'; ?>
