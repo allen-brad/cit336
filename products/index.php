@@ -26,12 +26,37 @@ if(isset($_COOKIE['firstname'])){
   $cookieFirstname = filter_input(INPUT_COOKIE, 'firstname', FILTER_SANITIZE_STRING);
 }
 switch ($action) {
+    case 'category':
+      $type = filter_input(INPUT_GET, 'type', FILTER_SANITIZE_STRING);
+      $products = getProductsByCategory($type);
+      if(!count($products)){
+        $message = "<p class='red'>Sorry, no $type products could be found.</p>";
+      } else {
+         $prodDisplay = buildProductsDisplay($products);
+      }
+      include '../view/category.php';
+      break;
+      
+    case 'item':
+      $invId = filter_input(INPUT_GET, 'invid', FILTER_SANITIZE_NUMBER_INT);
+      $item = getItemById($invId);
+      if(!count($item)){
+        $message = "<p class='red'>Sorry, product $invId could not be found.</p>";
+      } else {
+         $itemDisplay = buildItemDisplay($item);
+      }
+      
+      include '../view/item.php';
+    break;
+    
     case 'newCategory':
         include '../view/new-cat.php';
         break;
+      
     case 'newProduct':
         include '../view/new-prod.php';
         break;
+      
     case 'addCategory':
         //Filster and store data
         $categoryName = filter_input(INPUT_POST, 'categoryName', FILTER_SANITIZE_STRING);
@@ -58,6 +83,7 @@ switch ($action) {
          include '../view/new-cat.php';
          exit;
         }
+        
     case 'addProduct':
         //Filter and store data
         $invName = filter_input(INPUT_POST, 'invName', FILTER_SANITIZE_STRING);
@@ -104,6 +130,7 @@ switch ($action) {
          include '../view/new-prod.php';
          exit;
         }
+        
     case 'mod':
         $invId = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
         $prodInfo = getProductInfo($invId);
@@ -113,6 +140,7 @@ switch ($action) {
         include '../view/prod-update.php';
         exit;
         break;
+        
     case 'del':
         $invId = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
         $prodInfo = getProductInfo($invId);
@@ -122,6 +150,7 @@ switch ($action) {
         include '../view/prod-delete.php';
         exit;
         break;
+        
     case 'deleteProd':
         $invName = filter_input(INPUT_POST, 'invName', FILTER_SANITIZE_STRING);
         $invId = filter_input(INPUT_POST, 'invId', FILTER_SANITIZE_NUMBER_INT);
@@ -139,6 +168,7 @@ switch ($action) {
           exit;
         }
         break;
+        
     case 'updateProd':
         //Filter and store data
         $invName = filter_input(INPUT_POST, 'invName', FILTER_SANITIZE_STRING);
@@ -188,6 +218,7 @@ switch ($action) {
          include '../view/prod-update.php';
          exit;
         } 
+        
     default:
       $products = getProductBasics();
       if(count($products)>0){

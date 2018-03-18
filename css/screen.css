@@ -230,6 +230,31 @@ main {
     flex-grow: 1;
     flex-basis: 0;
 }
+
+#prod-display a {
+  text-decoration: none;
+  color: #990033;
+
+}
+#item-image img{
+    width: 100%;
+}
+  
+#item-image {
+  padding-left: 15px;
+}
+#item-desc {
+  padding-left: 15px;
+  align-self: center;
+}
+#item-desc li {
+  list-style: none;
+}
+#item-price {
+  font-size: 1.8rem;
+}
+
+
 /*--------------------------------- recipies ---------------------------------*/
 
 #recipe-box {
@@ -350,6 +375,28 @@ input.newAccountBtn:hover {
   font-size: .7rem;
   line-height: 1;
 }
+#prod-display {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+}
+#prod-display li{
+  margin-bottom: .5em;
+  border: 1px #ccc solid;
+  list-style-type: none;
+  max-width: 200px;
+  flex: 1 0 auto;
+  text-align: center;
+  max-height: 400px;
+  list-style-type: none;
+}
+ #prod-display li img{
+    width: 100%;
+    height: 200px;
+  }
+
 /*--------------------------------- responsive ---------------------------------*/
 @media only screen and (max-width: 43.75em) {
   /* 43.75 x 16px = 700 px */
@@ -364,6 +411,9 @@ input.newAccountBtn:hover {
       flex-flow: column nowrap;
       flex-direction:column-reverse;
     }
+    .item-display{
+      flex-direction:column !important; /*override dirextion for item*/
+    }
     #featured-item {
         background-color: rgba(255, 255, 255, 0.3);
         padding: 15px 0px 0px 15px;
@@ -372,11 +422,21 @@ input.newAccountBtn:hover {
         padding: 0px;
     }
     #primary-nav li a {
-        font-size: 1.3rem;
+        font-size: .9rem;
     }
+    #prod-display{
+    flex-direction: column;
+   }
+   #prod-display li{
+    flex: 1 1 auto;
+   }
+   #prod-display li img{
+    width: 100%;
+    height: 200px;
+   }
 }
 @media only screen and (min-width: 43.75em) {
-  /* 43.75 x 16px = 700 px */
+  /* so minimum width is 700px i.e. 43.75 x 16px  */
     .acmeform fieldset {
         width:55%;
     }

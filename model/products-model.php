@@ -3,6 +3,27 @@
  * Products model
  */
 
+function getProductsByCategory($type){
+ $db = acmeConnect();
+ $sql = 'SELECT * FROM inventory WHERE categoryId IN (SELECT categoryId FROM categories WHERE categoryName = :catType)';
+ $stmt = $db->prepare($sql);
+ $stmt->bindValue(':catType', $type, PDO::PARAM_STR);
+ $stmt->execute();
+ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+ $stmt->closeCursor();
+ return $products;
+}
+
+function getItemById($invId){
+  $db = acmeConnect();
+  $sql = 'SELECT * FROM inventory WHERE invId = :invId';
+  $stmt = $db->prepare($sql);
+  $stmt->bindValue(':invId', $invId, PDO::PARAM_INT);
+  $stmt->execute();
+  $item = $stmt->fetch(PDO::FETCH_ASSOC);
+  $stmt->closeCursor();
+  return $item;
+}
 //Insert new category into database
 function addCategory($categoryName){
     //create connection object
