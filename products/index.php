@@ -13,6 +13,8 @@ require_once '../library/connections.php';
 require_once '../model/acme-model.php';
 // Get the products model
 require_once '../model/products-model.php';
+// Get the uploads model
+require_once '../model/uploads-model.php';
 // Get the functions
 require_once '../library/functions.php';
 
@@ -46,6 +48,10 @@ switch ($action) {
          $itemDisplay = buildItemDisplay($item);
       }
       
+      $thumbs = getThumbmailsByProductId($invId);
+      if(count($thumbs) >1 ){
+         $thumbsDisplay = buildThumbsDisplay($thumbs);
+      }      
       include '../view/item.php';
     break;
     

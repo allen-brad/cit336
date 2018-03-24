@@ -19,6 +19,7 @@
                 <?php if (isset($message)) { echo $message;} ?>
                 <?php if(isset($itemDisplay)){ echo $itemDisplay; } ?>
               </div>
+              <?php if(isset($thumbsDisplay)){ echo $thumbsDisplay; } ?>
             </main>
             <footer id="primary-footer">
                 <?php include $_SERVER['DOCUMENT_ROOT'] . '/acme/common/footer.php'; ?>
