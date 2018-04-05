@@ -13,6 +13,8 @@ require_once '../library/connections.php';
 require_once '../model/acme-model.php';
 // Get the accounts model
 require_once '../model/accounts-model.php';
+// Get the accounts model
+require_once '../model/reviews-model.php';
 // Get the functions
 require_once '../library/functions.php';
 
@@ -28,6 +30,10 @@ if(isset($_COOKIE['firstname'])){
 }
 switch ($action) {
     case 'loginView':
+        $invId = filter_input(INPUT_POST, 'invId', FILTER_SANITIZE_NUMBER_INT);
+        if ($invId) {
+          $invIdPair = "<input type='hidden' name='invId' value='".$invId."'>";
+        }
         include '../view/login.php';
         break;
     case 'login':
@@ -36,7 +42,8 @@ switch ($action) {
         $clientEmail = checkEmail($clientEmail);
         $clientPassword = filter_input(INPUT_POST, 'clientPassword', FILTER_SANITIZE_STRING);
         $checkPassword = checkPassword($clientPassword);
-        
+        $invId = filter_input(INPUT_POST, 'invId', FILTER_SANITIZE_NUMBER_INT);
+
         // Check for missing data
         if(empty($clientEmail) || empty($checkPassword)){
         $message = '<p class="red">Please provide information for all empty form fields.</p>';
@@ -60,12 +67,24 @@ switch ($action) {
         $_SESSION['loggedin'] = TRUE;
         // Remove the password from the array the array_pop function removes the last element from an array
         array_pop($clientData);
+        
         // Store the array into the session
         $_SESSION['clientData'] = $clientData;
         
+        //to destroy cookie set the expiration date to one hour ago 
+        setcookie("firstname", "", time() - 360,'/');
+        
         $clientList = getClientList();
-        // Send them to the admin view
-        include '../view/admin.php';
+        //Send back to the account controller default admin view
+        
+        if ($invId != NULL) {
+          //Send them back to the product view 
+          header('location: ../products/?action=item&invId='.$invId);
+        } else {
+          //Send them to the admin view 
+        header('Location: /acme/accounts');
+        }
+        //include '../view/admin.php';
         exit;
     case 'logout';
         $_SESSION = array ();//empty out the global session
@@ -239,6 +258,9 @@ switch ($action) {
       if($_SESSION['loggedin']){
         // Query the client data based on the email address
         $clientList = getClientList();
+        $clientId = $_SESSION['clientData']['clientId'];
+        $reviews = getReviewsByClientId($clientId);
+        $reviewList = buildReviewListByClientId($reviews);
       }
       include '../view/admin.php';
 }

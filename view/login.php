@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang"en-us">
     <head>
         <meta charset="UTF-8">
         <title> Log In | Acme, Inc.</title>
@@ -29,6 +29,7 @@
                     <input type="submit" value="Sign In" class="submitBtn">
                     <!--add the action key-value pair-->
                     <input type="hidden" name="action" value="login">
+                    <?php if(isset($invIdPair)) { echo $invIdPair; } ?>
                 </form>
                 <form action="/acme/accounts/" method="post" enctype="multipart/form-data" class="acmeform">
                     <input type="submit" value="Create New Account" class="newAccountBtn">

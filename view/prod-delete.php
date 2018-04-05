@@ -6,7 +6,7 @@ if($_SESSION['clientData']['clientLevel'] < 2){
 }
 ?>
 <!DOCTYPE html>
-<html>
+<html lang"en-us">
     <head>
         <meta charset="UTF-8">
         <title><?php if(isset($prodInfo['invName'])){ echo "Delete $prodInfo[invName] ";}?>| ACME, Inc.</title>

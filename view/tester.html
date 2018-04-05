@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang"en-us">
+        <head>
+        <meta charset="UTF-8">
+        <title> Register | Acme, Inc.</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/acme/css/normalize.css">
+        <link rel="stylesheet" href="/acme/css/screen.css">
+        <link href="https://fonts.googleapis.com/css?family=Bangers" rel="stylesheet">
+    </head>
+    <body class="home">
+        <div id="container">
+                        <header id="primary-header">
+                <div id="site-logo"><a href="/acme/index.php"><img src="/acme/images/site/logo.gif" alt="ACME logo"></a></div>
+                <div id="account-link">
+                  <span>Welcome Noah</span><a href="/acme/accounts/"><img src="/acme/images/site/account.gif" alt="account logo">Account Admin</a><a id="logout" href="/acme/accounts/?action=logout">Log Out</a>                  </div>
+            </header>
+            <nav id="primary-nav">
+                <ul><li><a href='/acme/' title='View the Acme Home Page' >Home</a></li><li><a href='/acme/products/?action=category&type=Cannon' title='View our Cannon product line'>Cannon</a></li><li><a href='/acme/products/?action=category&type=Explosive' title='View our Explosive product line'>Explosive</a></li><li><a href='/acme/products/?action=category&type=Misc' title='View our Misc product line'>Misc</a></li><li><a href='/acme/products/?action=category&type=Rocket' title='View our Rocket product line'>Rocket</a></li><li><a href='/acme/products/?action=category&type=Trap' title='View our Trap product line'>Trap</a></li></ul>            </nav>
+            <main>
+                <h1>Noah Allen, you are logged in.</h1>
+                                <ul id="clientDataList"><li>First Name: Noah</li><li>Last Name: Allen</li><li>Email: n@allen.com</li></ul>                
+                <form action="/acme/accounts/" method="post" class="acmeform">
+                  <input type="submit" value="Update Account Information" class="submitBtn">
+                    <!--add the action key-value pair-->
+                    <input type="hidden" name="action" value="mod">
+                    <input type="hidden" name="clientEmail" value="n@allen.com">
+                </form>
+                <h3>Manage Your Reviews</h3><ul><li>Rocket (Reviewed on: 04 April, 2018) <a href='/acme/reviews?action=editReview&reviewid=3' title='Click to modify'> Edit |</a><a href='/acme/reviews?action=deleteReview&reviewid=3' title='Click to delete'> Delete</a></li><li>Mortar (Reviewed on: 01 April, 2018) <a href='/acme/reviews?action=editReview&reviewid=5' title='Click to modify'> Edit |</a><a href='/acme/reviews?action=deleteReview&reviewid=5' title='Click to delete'> Delete</a></li><li>Giant Mouse Trap (Reviewed on: 12 March, 2018) <a href='/acme/reviews?action=editReview&reviewid=6' title='Click to modify'> Edit |</a><a href='/acme/reviews?action=deleteReview&reviewid=6' title='Click to delete'> Delete</a></li><li>Instant Hole (Reviewed on: 15 February, 2018) <a href='/acme/reviews?action=editReview&reviewid=7' title='Click to modify'> Edit |</a><a href='/acme/reviews?action=deleteReview&reviewid=7' title='Click to delete'> Delete</a></li></ul></section>            </main>
+            <footer id="primary-footer">
+                                <hr>
+                <p>&copy; ACME, All rights reserved.<br>
+                All images used are believed to be in "Fair Use".
+                Please notify the author if any are not and they will be removed.<br>
+                Last Updated:
+                April 05 2018 05:22:10                </p>            </footer>
+        </div>
+    </body>
+</html>

@@ -15,6 +15,8 @@ require_once '../model/acme-model.php';
 require_once '../model/products-model.php';
 // Get the uploads model
 require_once '../model/uploads-model.php';
+// Get the reviews model
+require_once '../model/reviews-model.php';
 // Get the functions
 require_once '../library/functions.php';
 
@@ -40,18 +42,48 @@ switch ($action) {
       break;
       
     case 'item':
-      $invId = filter_input(INPUT_GET, 'invid', FILTER_SANITIZE_NUMBER_INT);
+      $invId = filter_input(INPUT_GET, 'invId', FILTER_SANITIZE_NUMBER_INT);
       $item = getItemById($invId);
       if(!count($item)){
         $message = "<p class='red'>Sorry, product $invId could not be found.</p>";
       } else {
-         $itemDisplay = buildItemDisplay($item);
+        //get reviews
+        $reviews = getReviewsByInvId($invId);
+        $reviewList = buildReviewListById($reviews);
+        //build the display
+        $itemDisplay = buildItemDisplay($item, $reviews);
       }
-      
+      //get item thumbnails
       $thumbs = getThumbmailsByProductId($invId);
       if(count($thumbs) >1 ){
          $thumbsDisplay = buildThumbsDisplay($thumbs);
-      }      
+      }
+      
+      //get item review form
+      if(isset($_SESSION['loggedin'])){ //if they have already reviewed this item don't show the form
+        $screenName = substr($_SESSION['clientData']['clientFirstname'], 0,1).$_SESSION['clientData']['clientLastname'];
+        $itemReviewForm ='<script>function adjustRating(rating){document.getElementById("ratingValue").innerHTML = "Rating: " + rating + " Stars";}
+    </script><form action="/acme/reviews/" method="post" enctype="multipart/form-data" class="acmeform">
+                <fieldset>
+                    <legend>Enter a review for '.$item['invName'].'</legend>
+                    <label><span>Review by '.$screenName .':</span><textarea name="itemReview" required></textarea></label>
+                    <label><span id="ratingValue">Rating: 4 Stars</span><input type="range" name="reviewRating" id="reviewRating" value="4" min="1" max="5" step="1" oninput="adjustRating(this.value)" onchange="adjustRating(this.value)">
+		</label>
+                </fieldset>
+                <input type="submit" value="Submit Review" class="submitBtn">
+                <!--add the action key-value pair-->
+                <input type="hidden" name="action" value="addReview">
+                <input type="hidden" name="invId" value="'.$invId.'">
+                <input type="hidden" name="clientId" value="'.$_SESSION['clientData']['clientId'].'">                    
+              </form>';
+      }else{// not logged in
+        $itemReviewForm = '<form action="/acme/accounts/" method="post" enctype="multipart/form-data" class="acmeform">
+                    <input type="submit" value="Please log in to review for the '.$item['invName'].'" class="newAccountBtn">
+                    <input type="hidden" name="action" value="loginView">
+                    <input type="hidden" name="invId" value="'. $invId.'">
+                </form>';
+      }
+      
       include '../view/item.php';
     break;
     

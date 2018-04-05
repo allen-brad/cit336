@@ -5,7 +5,7 @@ if($_SESSION['clientData']['clientLevel'] < 2){
   exit;
 }
 ?><!DOCTYPE html>
-<html>
+<html lang"en-us">
     <head>
         <meta charset="UTF-8">
         <title> Prod MGMT | Acme, Inc.</title>

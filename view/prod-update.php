@@ -23,7 +23,7 @@ $catList .= ">$category[categoryName]</option>";
 $catList .= '</select>';
 ?>
 <!DOCTYPE html>
-<html>
+<html lang"en-us">
     <head>
         <meta charset="UTF-8">
         <title><?php if(isset($prodInfo['invName'])){ echo "Modify $prodInfo[invName] ";} elseif(isset($invName)) { echo $invName; }?></title>

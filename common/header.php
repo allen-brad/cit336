@@ -4,9 +4,14 @@
                   <?php
                     if(isset($cookieFirstname)){
                       echo "<span>Welcome $cookieFirstname</span>";
+                    }elseif (isset($_SESSION['loggedin'])) {
+                      echo "<span>Welcome ". $_SESSION['clientData']['clientFirstname']."</span>";
                     }
+                    
                     if(isset($_SESSION['loggedin'])){
-                      echo '<a href="/acme/accounts/?action=logout"><img src="/acme/images/site/account.gif" alt="account logo">Log Out</a>';
+                      echo '<a href="/acme/accounts/"><img src="/acme/images/site/account.gif" alt="account logo">Account Admin</a>';
+                      echo '<a id="logout" href="/acme/accounts/?action=logout">Log Out</a>';
+
                     } else {
                       echo '<a href="/acme/accounts/?action=loginView"><img src="/acme/images/site/account.gif" alt="account logo">My Account</a>';
                     }                    

@@ -5,13 +5,17 @@ if(!$_SESSION['loggedin']){
   header('Location: /acme/');
   exit;
 }
-  $fullName = $_SESSION['clientData']['clientFirstname'].' '.$_SESSION['clientData']['clientLastname'];
+if (isset($_SESSION['message'])) {
+$message = $_SESSION['message'];
+unset($_SESSION['message']);
+}
+$fullName = $_SESSION['clientData']['clientFirstname'].' '.$_SESSION['clientData']['clientLastname'];
 ?>
-  <!DOCTYPE html>
-<html>
+<!DOCTYPE html>
+<html lang="en-us">
         <head>
         <meta charset="UTF-8">
-        <title> Register | Acme, Inc.</title>
+        <title> Account Admin | Acme, Inc.</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="/acme/css/normalize.css">
         <link rel="stylesheet" href="/acme/css/screen.css">
@@ -25,11 +29,7 @@ if(!$_SESSION['loggedin']){
             </nav>
             <main>
                 <h1><?php echo $fullName . ", you are logged in.";?></h1>
-                <?php
-                  if (isset($message)) {
-                    echo $message;
-                  }
-                ?>
+                <?php if (isset($message)) {echo $message;}?>
                 <?php
                   echo $clientList;
                   if($_SESSION['clientData']['clientLevel']>1){
@@ -43,7 +43,8 @@ if(!$_SESSION['loggedin']){
                     <!--add the action key-value pair-->
                     <input type="hidden" name="action" value="mod">
                     <input type="hidden" name="clientEmail" value="<?php if(isset($_SESSION['clientData']['clientEmail'])){ echo $_SESSION['clientData']['clientEmail'];} ?>">
-                </form>             
+                </form>
+                <?php if (isset($reviewList)) { echo $reviewList;} ?>
             </main>
             <footer id="primary-footer">
                 <?php include $_SERVER['DOCUMENT_ROOT'] . '/acme/common/footer.php'; ?>

@@ -21,7 +21,7 @@ function checkEmail($clientEmail){
 function buildProductsDisplay($products){
  $pd = '<ul id="prod-display">';
  foreach ($products as $product) {
-  $pd .= "<li><a href='/acme/products/?action=item&invid=$product[invId]'>";
+  $pd .= "<li><a href='/acme/products/?action=item&invId=$product[invId]'>";
   $pd .= "<img src='$product[invThumbnail]' alt='Image of $product[invName] on Acme.com'>";
   $pd .= '<hr>';
   $pd .= "<h2>$product[invName]</h2>";
@@ -31,10 +31,39 @@ function buildProductsDisplay($products){
  $pd .= '</ul>';
  return $pd;
 }
-
-function buildItemDisplay($item){
+function averageStarRating($reviews){
+  If(isset($reviews)){
+    $totalStars = 0;
+    foreach ($reviews as $review) {
+      $totalStars += $review['reviewRating'];
+    }
+    if(count($reviews)==0){
+      return null;
+    }
+    $averageStars = $totalStars/count($reviews);
+    $whole = floor($averageStars);
+    $fraction = $averageStars - $whole;
+    $starRating = "";
+    $half = FALSE;
+    for($i=0;$i<5; $i++ ){
+      if($i<=$averageStars-1){
+        $starRating .= '<span class="star-icon full">☆</span>';
+      } else {
+        if($fraction >=.5 & $half ==FALSE){
+          $starRating .= '<span class="star-icon half">☆</span>';
+          $half = TRUE;
+        } else {
+          $starRating .= '<span class="star-icon">☆</span>';
+        }
+      }
+    }
+  return $starRating;
+  }
+}
+function buildItemDisplay($item,$reviews){
+  $starRating = averageStarRating($reviews);
   $itemView = '<section id="item-image-section">';
-  $itemView .="<h2>$item[invName]</h2>";
+  $itemView .="<h2>$item[invName] &nbsp; <a id='item-reivew' href='#reviews'>$starRating See All Reviews</a></h2>";
   $itemView .='<figure id="item-image">';
   $itemView .="<img src='$item[invImage]' alt='Image of $item[invName] on Acme.com'>";
   $itemView .="</figure>";
@@ -62,6 +91,38 @@ function buildThumbsDisplay($thumbs){
   $tn .= '</ul>';
   return $tn;
 }
+
+function buildReviewListById($reviews){
+  $screenName = substr($_SESSION['clientData']['clientFirstname'], 0,1).$_SESSION['clientData']['clientLastname'];//temporary cheat
+  $reviewList = '<div id="reviews">';
+  foreach ($reviews as $review) {
+    $reviewList .= '<section class="review">';
+    $reviewList .= "<h4>$screenName gave this $review[reviewRating] stars on ". date ("d F, Y", strtotime($review['reviewDate'])).":</h4>";
+    $reviewList .= "<p>$review[reviewText]</p>";
+    $reviewList .= '</section>';
+  }
+  $reviewList .= '</div>';
+  return $reviewList;
+}
+function buildReviewListByClientId($reviews){
+  if(empty($reviews)){
+    $reviewList = null;
+  }else{
+    $reviewList = '<section id="clientReviews">';
+    $reviewList .= '<h3>Manage Your Reviews</h3>';
+    $reviewList .= '<ul>';
+      foreach ($reviews as $review) {
+        $reviewList .= "<li>$review[invName] (Reviewed on: " .date ("d F, Y", strtotime($review['reviewDate'])).") ";
+        $reviewList .= "<a href='/acme/reviews/?action=editReview&reviewId=$review[reviewId]' title='Click to modify'> Edit |</a>";
+        $reviewList .= "<a href='/acme/reviews/?action=confirmReviewDelete&reviewId=$review[reviewId]' title='Click to delete'> Delete</a>";
+        $reviewList .= "</li>";
+      }
+    $reviewList .= "</ul>";
+    $reviewList .= '</section>';
+    return $reviewList;
+  }
+}
+
 // Check the password for a minimum of 8 characters,
 // at least one 1 capital letter, at least 1 number and
 // at least 1 special character
@@ -92,6 +153,10 @@ function checkInvVendor($invVendor){
 function checkInvStyle($invStyle){
   $pattern = '([a-zA-Z0-9 .,]{3,35})';
   return preg_match($pattern, $invStyle);
+}
+function checkReviewRating($reviewRating){
+  $pattern = '([1-5])';
+  return preg_match($pattern, $reviewRating);
 }
 
 /* * ********************************

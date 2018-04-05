@@ -1,10 +1,11 @@
 <?php
 if (isset($_SESSION['message'])) {
  $message = $_SESSION['message'];
+ unset($_SESSION['message']);
 }
 ?>
 <!DOCTYPE html>
-<html>
+<html lang"en-us">
         <head>
         <meta charset="UTF-8">
         <title> Image Management | Acme, Inc.</title>
@@ -48,4 +49,3 @@ if (isset($_SESSION['message'])) {
         </div>
     </body>
 </html>
-<?php unset($_SESSION['message']); ?>

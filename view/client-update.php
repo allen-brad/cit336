@@ -8,7 +8,7 @@ if(!$_SESSION['loggedin']){
   $fullName = $_SESSION['clientData']['clientFirstname'].' '.$_SESSION['clientData']['clientLastname'];
 ?>
 <!DOCTYPE html>
-<html>
+<html lang"en-us">
     <head>
         <meta charset="UTF-8">
         <title> Update Account Info | Acme, Inc.</title>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang"en-us">
         <head>
         <meta charset="UTF-8">
         <title> <?php echo $type; ?> Products | Acme, Inc.</title>

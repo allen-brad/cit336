@@ -5,10 +5,11 @@ if($_SESSION['clientData']['clientLevel'] < 2){
 }
 if (isset($_SESSION['message'])) {
  $message = $_SESSION['message'];
+ unset($_SESSION['message']);
 }
 ?>
 <!DOCTYPE html>
-<html>
+<html lang"en-us">
     <head>
         <meta charset="UTF-8">
         <title> Prod MGMT | Acme, Inc.</title>
@@ -50,4 +51,3 @@ if (isset($_SESSION['message'])) {
         </div>
     </body>
 </html>
-<?php unset($_SESSION['message']); ?>
