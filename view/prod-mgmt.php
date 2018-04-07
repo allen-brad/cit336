@@ -9,7 +9,7 @@ if (isset($_SESSION['message'])) {
 }
 ?>
 <!DOCTYPE html>
-<html lang"en-us">
+<html lang="en-us">
     <head>
         <meta charset="UTF-8">
         <title> Prod MGMT | Acme, Inc.</title>

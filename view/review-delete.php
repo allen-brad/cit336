@@ -1,12 +1,5 @@
-<?php
-//only logged in users with level 2 or higher can enter
-if($_SESSION['clientData']['clientLevel'] < 2){
-  header('Location: /acme/');
-  exit;
-}
-?>
 <!DOCTYPE html>
-<html lang"en-us">
+<html lang="en-us">
     <head>
         <meta charset="UTF-8">
         <title><?php if(isset($prodInfo['invName'])){ echo "Delete $prodInfo[invName] ";}?>| ACME, Inc.</title>
@@ -34,7 +27,6 @@ if($_SESSION['clientData']['clientLevel'] < 2){
                   <input type="submit" value="Delete Review" class="submitBtn">
                   <input type="hidden" name="action" value="deleteReview">
                   <input type="hidden" name="reviewId" value="<?php if (isset($reviewId)) {echo $reviewId;}?>">
-                  <input type="hidden" name="reviewId" value="<?php if (isset($invName)) {echo $invName;}?>">
                 </form>
             </main>
             <footer id="primary-footer">

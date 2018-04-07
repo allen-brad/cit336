@@ -1,11 +1,5 @@
-<?php
-//only logged in users with level 2 or higher can enter
-if($_SESSION['clientData']['clientLevel'] < 2){
-  header('Location: /acme/');
-  exit;
-}
-?><!DOCTYPE html>
-<html lang"en-us">
+<!DOCTYPE html>
+<html lang="en-us">
     <head>
         <meta charset="UTF-8">
         <title> Review Update | Acme, Inc.</title>

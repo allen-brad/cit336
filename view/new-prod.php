@@ -20,7 +20,7 @@ if($_SESSION['clientData']['clientLevel'] < 2){
   $catList .= '</select>';
 ?>
 <!DOCTYPE html>
-<html lang"en-us">
+<html lang="en-us">
     <head>
         <meta charset="UTF-8">
         <title> Prod MGMT | Acme, Inc.</title>

@@ -35,7 +35,7 @@ function checkExistingInv($invId){
 //get reviews by the product ID
 function getReviewsByInvId($invId){
   $db = acmeConnect();
-  $sql = 'SELECT * FROM reviews WHERE invId = :invId';
+  $sql = 'SELECT * FROM reviews WHERE invId = :invId ORDER BY reviewDate DESC ';
   $stmt = $db->prepare($sql);
   $stmt->bindValue(':invId', $invId, PDO::PARAM_INT);
   $stmt->execute();
@@ -72,7 +72,7 @@ function addReview($itemReview, $reviewRating, $invId, $clientId){
 
 function getReviewsByClientId($clientId){
   $db = acmeConnect();
-  $sql = 'SELECT reviewId, reviewDate, invName FROM reviews JOIN inventory WHERE clientId = :clientId AND reviews.invId = inventory.invId';
+  $sql = 'SELECT reviewId, reviewDate, invName FROM reviews JOIN inventory WHERE clientId = :clientId AND reviews.invId = inventory.invId ORDER BY reviewDate DESC';
   $stmt = $db->prepare($sql);
   $stmt->bindValue(':clientId', $clientId, PDO::PARAM_INT);
   $stmt->execute();
